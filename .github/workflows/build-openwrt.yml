@@ -28,8 +28,8 @@ env:
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
-  UPLOAD_COWTRANSFER: false
-  UPLOAD_WETRANSFER: false
+  UPLOAD_COWTRANSFER: true
+  UPLOAD_WETRANSFER: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
@@ -199,6 +199,31 @@ jobs:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
+
+    - name: Upload Firmware to Github Release
+      uses: svenstaro/upload-release-action@v2
+      if: env.UPLOAD_RELEASES == 'true' && env.Result == 'true' && !cancelled()
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: openwrt/bin/Firmware/*
+        file_glob: true
+        tag: AutoUpdate
+        overwrite: true
+        
+    - name: Download Github Release API
+      if: env.UPLOAD_RELEASES == 'true' && env.Result == 'true' && !cancelled()
+      run: |
+        wget https://api.github.com/repos/${{github.repository}}/releases/tags/AutoUpdate -O API
+        
+    - name: Upload API to Github Release
+      if: env.UPLOAD_RELEASES == 'true' && env.Result == 'true' && !cancelled()
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./API
+        file_glob: true
+        tag: AutoUpdate
+        overwrite: true
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
