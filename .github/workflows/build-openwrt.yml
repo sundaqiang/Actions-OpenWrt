@@ -214,7 +214,7 @@ jobs:
       if: steps.tag.outputs.status == 'success' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: openwrt/bin/Firmware/*
+        file: ${{ env.FIRMWARE }}/*
         file_glob: true
         tag: AutoUpdate
         overwrite: true
