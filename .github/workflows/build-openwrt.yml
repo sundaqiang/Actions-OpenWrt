@@ -87,7 +87,7 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        cat $GITHUB_WORKSPACE/package/lean/default-settings/files/zzz-default-settings
+        cat package/lean/default-settings/files/zzz-default-settings
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
