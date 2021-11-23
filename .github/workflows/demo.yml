@@ -60,7 +60,7 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        echo "RELEASE_TAG=$(date +"OpenWrt_%Y%m%d_%H%M%S_$(git rev-parse --short HEAD)")" >> $GITHUB_ENV
+        echo "RELEASE_TAG=$(date +"OpenWrt_%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)" >> $GITHUB_ENV
         echo ${{ env.RELEASE_TAG }}
         echo "DISTRIB_DESCRIPTION=${{github.actor}} Compiled By ${{ env.RELEASE_TAG }} @ OpenWrt " >> $GITHUB_ENV
         echo ${{ env.DISTRIB_DESCRIPTION }}
