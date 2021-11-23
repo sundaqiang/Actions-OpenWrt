@@ -80,6 +80,13 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a -f
 
+    - name: Openwrt AutoUpdate
+      run: |
+        TEMP=$(date +"OpenWrt_%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)
+        echo "RELEASE_TAG=$TEMP" >> $GITHUB_ENV
+        cd openwrt
+        sed -i "s/OpenWrt /${{github.actor}} compiled (${TEMP:8}) \/ OpenWrt /g" package/lean/default-settings/files/zzz-default-settings
+
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
@@ -100,7 +107,6 @@ jobs:
       id: package
       run: |
         cd openwrt
-        echo "::set-output name=commitHash::$(git rev-parse --short HEAD)"
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
@@ -194,7 +200,6 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success' && !cancelled()
       run: |
-        echo "::set-output name=release_tag::$(date +"OpenWrt_%Y%m%d_%H%M%S_${{ steps.package.outputs.commitHash }}")"
         touch release.txt
         [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
@@ -206,34 +211,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.tag.outputs.release_tag }}
+        tag_name: ${{ env.RELEASE_TAG }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
-
-    - name: Upload Firmware to Github Release
-      uses: svenstaro/upload-release-action@v2
-      if: steps.tag.outputs.status == 'success' && !cancelled()
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.FIRMWARE }}/*
-        file_glob: true
-        tag: AutoUpdate
-        overwrite: true
-        
-    - name: Download Github Release API
-      if: steps.tag.outputs.status == 'success' && !cancelled()
-      run: |
-        wget https://api.github.com/repos/${{github.repository}}/releases/tags/AutoUpdate -O API
-        
-    - name: Upload API to Github Release
-      if: steps.tag.outputs.status == 'success' && !cancelled()
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ./API
-        file_glob: true
-        tag: AutoUpdate
-        overwrite: true
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
