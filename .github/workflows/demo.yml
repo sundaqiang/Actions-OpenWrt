@@ -51,9 +51,6 @@ jobs:
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        TEMP=$(date +"OpenWrt_%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)
-        echo "RELEASE_TAG=$TEMP" >> $GITHUB_ENV
-        echo "DISTRIB_DESCRIPTION=$TEMP Compiled By ${{github.actor}}@OpenWrt " >> $GITHUB_ENV
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
         
@@ -77,12 +74,18 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a -f
 
+    - name: Openwrt AutoUpdate
+      run: |
+        TEMP=$(date +"OpenWrt_%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)
+        echo "RELEASE_TAG=$TEMP" >> $GITHUB_ENV
+        cd openwrt
+        sed -i "s/OpenWrt /$TEMP Compiled By ${{github.actor}} @ OpenWrt /g" package/lean/default-settings/files/zzz-default-settings
+
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         echo $RELEASE_TAG
-        echo $DISTRIB_DESCRIPTION
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
