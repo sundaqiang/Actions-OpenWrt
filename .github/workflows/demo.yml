@@ -51,10 +51,9 @@ jobs:
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        echo "RELEASE_TAG=$(date +"OpenWrt_%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-        echo ${{env.RELEASE_TAG}}
-        echo "DISTRIB_DESCRIPTION=${{env.RELEASE_TAG}} Compiled By ${{github.actor}}@OpenWrt " >> $GITHUB_ENV
-        echo ${{env.DISTRIB_DESCRIPTION}}
+        TEMP=$(date +"OpenWrt_%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)
+        echo "RELEASE_TAG=$TEMP" >> $GITHUB_ENV
+        echo "DISTRIB_DESCRIPTION=$TEMP Compiled By ${{github.actor}}@OpenWrt " >> $GITHUB_ENV
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
         
