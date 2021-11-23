@@ -52,9 +52,9 @@ jobs:
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
         echo "RELEASE_TAG=$(date +"OpenWrt_%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-        echo $env.RELEASE_TAG
-        echo "DISTRIB_DESCRIPTION=$env.RELEASE_TAG Compiled By ${{github.actor}}@OpenWrt " >> $GITHUB_ENV
-        echo $env.DISTRIB_DESCRIPTION
+        echo ${{env.RELEASE_TAG}}
+        echo "DISTRIB_DESCRIPTION=${{env.RELEASE_TAG}} Compiled By ${{github.actor}}@OpenWrt " >> $GITHUB_ENV
+        echo ${{env.DISTRIB_DESCRIPTION}}
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
         
