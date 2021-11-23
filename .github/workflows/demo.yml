@@ -26,7 +26,6 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
-  RELEASE_TAG: ${{ github.actor }} compiled in $(date +"OpenWrt_%Y%m%d_%H%M%S_$(git rev-parse --short HEAD)") @ OpenWrt 
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: true
@@ -61,6 +60,10 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        echo "RELEASE_TAG=$(date +"OpenWrt_%Y%m%d_%H%M%S_$(git rev-parse --short HEAD)")" >> $GITHUB_ENV
+        echo ${{ env.RELEASE_TAG }}
+        echo "DISTRIB_DESCRIPTION=${{github.actor}} Compiled By ${{ env.RELEASE_TAG }} @ OpenWrt " >> $GITHUB_ENV
+        echo ${{ env.DISTRIB_DESCRIPTION }}
         
     - name: Load custom feeds
       run: |
@@ -79,7 +82,8 @@ jobs:
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        echo ${{github.actor}}$(git rev-parse --short HEAD)
+        echo ${{ env.RELEASE_TAG }}
+        echo ${{ env.DISTRIB_DESCRIPTION }}
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
