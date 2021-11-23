@@ -74,7 +74,7 @@ jobs:
         TEMP=$(date +"OpenWrt_%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)
         echo "RELEASE_TAG=$TEMP" >> $GITHUB_ENV
         cd openwrt
-        sed -i "s/OpenWrt /${{github.actor}} Compiled \(${TEMP:8}\) / OpenWrt /g" package/lean/default-settings/files/zzz-default-settings
+        sed -i "s/OpenWrt /${{github.actor}} compiled (${TEMP:8}) \/ OpenWrt /g" package/lean/default-settings/files/zzz-default-settings
 
     - name: Load custom configuration
       run: |
