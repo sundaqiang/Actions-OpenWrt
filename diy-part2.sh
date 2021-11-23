@@ -20,6 +20,6 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-s
 rm -rf package/lean/luci-theme-argon    # 删除自带argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon    # 替换新版argon
 sed -i 's/+uhttpd +uhttpd-mod-ubus //g' feeds/luci/collections/luci/Makefile    # 删除uhttpd
-sed -i 's/OpenWrt /${Author} compiled in $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g' $ZZZ    # 增加个性名字 ${Author} 默认为你的github帐号
+sed -i 's/OpenWrt /${{ github.actor }} compiled in $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g' $ZZZ    # 增加个性名字 ${Author} 默认为你的github帐号
 sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ    # 设置密码为空
 sed -i 's/PATCHVER:=5.4/PATCHVER:=5.10/g' target/linux/x86/Makefile   # x86机型,默认内核5.4，修改内核为5.10
