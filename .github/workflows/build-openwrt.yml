@@ -18,6 +18,10 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+      cache:
+        description: 'Cache wrt build'
+        required: false
+        default: 'true'
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -62,6 +66,7 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
     - name: cache
+      if: github.event.inputs.ssh == 'true'
       uses: klever1988/cachewrtbuild@main
       with:
         ccache: 'true'
