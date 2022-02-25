@@ -23,7 +23,7 @@ on:
         required: false
         default: 'false'
   schedule:
-    - cron: 0 */18 */3 * *
+    - cron: 0 16 */3 * *
 
 jobs:
   check:
