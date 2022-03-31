@@ -48,9 +48,6 @@ sed -i "/.login-page {/i\\
 .input-group input {\n\
   margin-bottom: 0\!important;\n\
 }\n\
-.cbi-button-apply {\n\
-  margin: 10px 0px 60px\!important;\n\
-}\n\
 .ftc {\n\
-  bottom: 15px\!important;\n\
+  bottom: 0\!important;\n\
 }" feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
