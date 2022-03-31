@@ -16,10 +16,41 @@ sed -i 's/\/bin\/ash/\/bin\/bash/' package/base-files/files/etc/passwd    # 替�
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile   # 选择argon为默认主题
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-nginx/Makefile   # 选择argon为默认主题
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-ssl-nginx/Makefile   # 选择argon为默认主题
-rm -rf feeds/luci/themes/luci-theme-argon    # 删除自带argon
-git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon    # 替换新版argon
 sed -i 's/+uhttpd +uhttpd-mod-ubus //g' feeds/luci/collections/luci/Makefile    # 删除uhttpd
 sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings    # 设置密码为空
-#sed -i 's/PATCHVER:=5.10/PATCHVER:=5.15/g' target/linux/x86/Makefile   # x86机型,默认内核5.10，修改内核为5.15
+# sed -i 's/PATCHVER:=5.10/PATCHVER:=5.15/g' target/linux/x86/Makefile   # x86机型,默认内核5.10，修改内核为5.15
 # rm -rf feeds/packages/utils/runc/Makefile   # 临时删除run1.0.3
 # svn export https://github.com/openwrt/packages/trunk/utils/runc/Makefile feeds/packages/utils/runc/Makefile   # 添加runc1.0.2
+rm -rf feeds/luci/themes/luci-theme-argon    # 删除自带argon
+git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon    # 替换新版argon
+# 调整argon登录框为居中
+sed -i "/.login-page {/i\\
+.login-container {\n\
+  margin: auto;\n\
+  height: 420px\!important;\n\
+  min-height: 420px\!important;\n\
+  left: 0;\n\
+  right: 0;\n\
+  bottom: 0;\n\
+  margin-left: auto\!important;\n\
+  border-radius: 25px;\n\
+}\n\
+.login-form {\n\
+  background-color: rgba(166, 166, 166, 0.2)\!important;\n\
+  border-radius: 25px;\n\
+}\n\
+.brand {\n\
+  margin: 25px auto 25px 50px\!important;\n\
+}\n\
+.input-group {\n\
+  margin-bottom: 1rem\!important;\n\
+}\n\
+.input-group input {\n\
+  margin-bottom: 0\!important;\n\
+}\n\
+.cbi-button-apply {\n\
+  margin: 10px 0px 60px\!important;\n\
+}\n\
+.ftc {\n\
+  bottom: 15px\!important;\n\
+}" feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
