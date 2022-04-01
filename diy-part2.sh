@@ -36,7 +36,7 @@ sed -i "/.login-page {/i\\
   border-radius: 25px;\n\
 }\n\
 .login-form {\n\
-  background-color: rgba(166, 166, 166, 0.2)\!important;\n\
+  background-color: rgba(255, 255, 255, 0)\!important;\n\
   border-radius: 25px;\n\
 }\n\
 .brand {\n\
