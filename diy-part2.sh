@@ -27,8 +27,8 @@ git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/
 sed -i "/.login-page {/i\\
 .login-container {\n\
   margin: auto;\n\
-  height: 420px\!important;\n\
-  min-height: 420px\!important;\n\
+  height: 500px\!important;\n\
+  min-height: 500px\!important;\n\
   left: 0;\n\
   right: 0;\n\
   bottom: 0;\n\
