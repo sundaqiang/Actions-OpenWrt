@@ -39,7 +39,7 @@ sed -i "/.login-page {/i\\
   background-color: rgba(255, 255, 255, 0)\!important;\n\
   border-radius: 25px;\n\
 }\n\
-.brand {\n\
+.login-form .brand {\n\
   margin: 25px auto 25px 50px\!important;\n\
 }\n\
 .input-group {\n\
