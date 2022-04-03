@@ -34,7 +34,7 @@ sed -i "/.login-page {/i\\
   bottom: 0;\n\
   margin-left: auto\!important;\n\
   border-radius: 15px;\n\
-  width: 380px!important;\n\
+  width: 350px!important;\n\
 }\n\
 .login-form {\n\
   background-color: rgba(255, 255, 255, 0)\!important;\n\
@@ -61,3 +61,4 @@ sed -i "/.login-page {/i\\
 .ftc {\n\
   bottom: 0\!important;\n\
 }" feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
+sed -i "s/margin-left: 0rem \!important;/margin-left: auto\!important;/g" feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
