@@ -27,20 +27,30 @@ git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/
 sed -i "/.login-page {/i\\
 .login-container {\n\
   margin: auto;\n\
-  height: 500px\!important;\n\
-  min-height: 500px\!important;\n\
+  height: 420px\!important;\n\
+  min-height: 420px\!important;\n\
   left: 0;\n\
   right: 0;\n\
   bottom: 0;\n\
   margin-left: auto\!important;\n\
-  border-radius: 25px;\n\
+  border-radius: 15px;\n\
+  width: 380px!important;\n\
 }\n\
 .login-form {\n\
   background-color: rgba(255, 255, 255, 0)\!important;\n\
-  border-radius: 25px;\n\
+  border-radius: 15px;\n\
 }\n\
 .login-form .brand {\n\
-  margin: 25px auto 25px 50px\!important;\n\
+  margin: 15px auto\!important;\n\
+}\n\
+.login-form .form-login {\n\
+    padding: 10px 50px\!important;\n\
+}\n\
+.login-form .errorbox {\n\
+  padding: 10px\!important;\n\
+}\n\
+.login-form .cbi-button-apply {\n\
+  margin: 15px auto\!important;\n\
 }\n\
 .input-group {\n\
   margin-bottom: 1rem\!important;\n\
