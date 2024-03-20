@@ -21,6 +21,7 @@ sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-defaul
 # sed -i 's/PATCHVER:=5.10/PATCHVER:=5.15/g' target/linux/x86/Makefile   # x86机型,默认内核5.10，修改内核为5.15
 # rm -rf feeds/packages/utils/runc/Makefile   # 临时删除run1.0.3
 # svn export https://github.com/openwrt/packages/trunk/utils/runc/Makefile feeds/packages/utils/runc/Makefile   # 添加runc1.0.2
+git clone https://github.com/vernesong/OpenClash package/luci-app-openclash
 rm -rf feeds/luci/themes/luci-theme-argon    # 删除自带argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon    # 替换新版argon
 # 调整argon登录框为居中
