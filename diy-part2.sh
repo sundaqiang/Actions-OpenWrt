@@ -10,6 +10,8 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
+# 应该找个时候更新了
+
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.0.1/g' package/base-files/files/bin/config_generate   # 修改默认ip
 sed -i 's/\/bin\/ash/\/bin\/bash/' package/base-files/files/etc/passwd    # 替换终端为bash
