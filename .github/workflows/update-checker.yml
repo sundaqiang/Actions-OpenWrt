@@ -22,8 +22,8 @@ on:
         description: 'Forced Updating'
         required: false
         default: 'false'
-  schedule:
-    - cron: 0 16 */3 * *
+#  schedule:
+#    - cron: 0 16 */3 * *
 
 jobs:
   check:
